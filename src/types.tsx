@@ -5,11 +5,23 @@ export interface TaskTypes {
   completed: boolean;
   deleted: boolean;
 }
-
 // Тип для состояния задач
 export interface TasksState {
   tasks: TaskTypes[];
   deletedTasks: TaskTypes[];
+}
+
+
+// Тип для доски
+export interface DashboardTypes {
+  id: string;
+  title: string;
+}
+
+
+// Тип для состояния досок
+export interface DashboardState {
+  dashboards: DashboardTypes[];
 }
 
 // Тип для фильтра
