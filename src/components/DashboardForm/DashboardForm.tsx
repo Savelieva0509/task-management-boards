@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Formik, ErrorMessage, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { addDashboard } from '../../redux/dashboard-slice';
+import { addDashboard } from '../../redux/dashboards-slice';
 import { FormValues } from '../../types';
 import Button from '../Button/Button';
 import css from './DashboardForm.module.scss';
