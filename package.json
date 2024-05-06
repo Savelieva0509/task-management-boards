@@ -1,8 +1,8 @@
 {
-  "name": "planner",
+  "name": "task-management-boards",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Savelieva0509.github.io/planner/",
+  "homepage": "https://Savelieva0509.github.io/task-management-boards/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "@types/node": "^20",

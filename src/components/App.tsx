@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
+import  DashboardPage from '../pages/DashboardPage/DashboardPage';
 import MainPage from '../pages/MainPage/MainPage';
-import ArchivePage from '../pages/ArchivePage/ArchivePage';
 
 function App() {
   return (
-     <>
+    <>
       <Routes>
-        <Route index element={<MainPage />} />
-        <Route path="/archive/*" element={<ArchivePage />} />
+        <Route index element={<MainPage />}/>
+        <Route path="/:dashboardId" element={<DashboardPage />} />
       </Routes>
     </>
   );

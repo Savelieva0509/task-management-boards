@@ -1,14 +1,12 @@
-import Layout from '../../components/Layout/Layout';
 import AppBar from '../../components/AppBar/AppBar';
-import TaskForm from '../../components/TaskForm/TaskForm';
-import TaskList from '../../components/TaskList/TaskList';
+import DashboardList from '../../components/DashboardList/DashboardList';
+import Layout from '../../components/Layout/Layout';
 
 const MainPage = () => {
   return (
     <Layout>
       <AppBar />
-      <TaskForm />
-      <TaskList />
+      <DashboardList />
     </Layout>
   );
 };

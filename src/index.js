@@ -8,9 +8,9 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/planner">
+    <BrowserRouter basename="/task-management-boards">
       <Provider store={store}>
-         <App />
+        <App />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
