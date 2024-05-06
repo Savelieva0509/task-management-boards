@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import { Formik, ErrorMessage, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { addDashboard } from '../../redux/dashboards-slice';
-import { FormValues } from '../../types';
+import { DashboardFormValues } from '../../types';
 import Button from '../Button/Button';
 import css from './DashboardForm.module.scss';
 
 const initialValues = {
-  task: '',
+  dashboard: '',
 };
 
 const maxLength = 40 ;
@@ -19,14 +19,14 @@ const dashboardSchema = Yup.object().shape({
 });
 
 const DashboardForm = () => {
-  interface MyFormikHelpers extends FormikHelpers<FormValues> {}
+  interface MyFormikHelpers extends FormikHelpers<DashboardFormValues> {}
 
   const dispatch = useDispatch();
   const handleFormSubmit = (
-    formikValues: FormValues,
+    formikValues: DashboardFormValues,
     formikHelpers: MyFormikHelpers
   ) => {
-    dispatch(addDashboard(formikValues.task));
+    dispatch(addDashboard(formikValues.dashboard));
     formikHelpers.resetForm();
   };
 
@@ -41,7 +41,7 @@ const DashboardForm = () => {
           <form className={css.form} onSubmit={handleSubmit}>
             <Field
               className={`${css.field} ${
-                touched.task && errors.task ? css.error_field : ''
+                touched.dashboard && errors.dashboard ? css.error_field : ''
               }`}
               type="text"
               name="dashboard"

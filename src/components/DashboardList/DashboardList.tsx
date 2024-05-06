@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 import { getDashboards } from '.././../redux/selectors';
 
-import { DashboardsState, DashboardTypes } from '../../types';
+import { DashboardTypes } from '../../types';
 import css from './DashboardList.module.scss';
 
 

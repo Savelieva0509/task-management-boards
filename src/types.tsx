@@ -39,7 +39,12 @@ export interface RootState {
   dashboards: DashboardsState;
 }
 
-// Определение типа значений формы
+// Определение типа значений формы задач
 export interface FormValues {
   task: string;
+}
+
+// Определение типа значений формы доски
+export interface DashboardFormValues {
+  dashboard: string;
 }
