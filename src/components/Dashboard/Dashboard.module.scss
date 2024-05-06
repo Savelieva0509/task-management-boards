@@ -32,3 +32,12 @@
   background-color: #bdbdbd;
 }
 
+.input {
+  flex-grow: 1;
+  padding: 8px;
+  font: inherit;
+}
+
+.input:focus {
+  outline-color: #1976d2;
+}
