@@ -20,7 +20,7 @@ export interface DashboardTypes {
 
 
 // Тип для состояния досок
-export interface DashboardState {
+export interface DashboardsState {
   dashboards: DashboardTypes[];
 }
 
@@ -36,6 +36,7 @@ export interface FilterState {
 export interface RootState {
   tasks: TasksState;
   filter: FilterState;
+  dashboards: DashboardsState;
 }
 
 // Определение типа значений формы

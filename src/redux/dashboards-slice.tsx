@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
-import { DashboardTypes, DashboardState } from '../types';
+import { DashboardTypes, DashboardsState } from '../types';
 
 const initialState: DashboardTypes[] = [
-  { id: '0', title: 'Do the dishes' },
-  { id: '1', title: 'Take out the trash' },
-  { id: '2', title: 'Clean the house' },
+  { id: '0', title: 'Project 1' },
+  { id: '1', title: 'Project 2' },
+  { id: '2', title: 'Project 3' },
 ];
 
-const dashboardSlice = createSlice({
-  name: 'tasks',
+const dashboardsSlice = createSlice({
+  name: 'dashboards',
   initialState: initialState,
   reducers: {
     addDashboard: {
@@ -31,5 +31,5 @@ const dashboardSlice = createSlice({
   },
 });
 
-export const { addDashboard, deleteDashboard } = dashboardSlice.actions;
-export const dashboardReducer = dashboardSlice.reducer;
+export const { addDashboard, deleteDashboard } = dashboardsSlice.actions;
+export const dashboardsReducer = dashboardsSlice.reducer;
