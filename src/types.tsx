@@ -1,23 +1,25 @@
 // Тип для задачи
 export interface TaskTypes {
   id: string;
+  dashboardId: string;
+  title: string;
   text: string;
-  completed: boolean;
-  deleted: boolean;
+  toDo: boolean;
+  inProcess: boolean;
+  done: boolean;
 }
+
 // Тип для состояния задач
 export interface TasksState {
   tasks: TaskTypes[];
   deletedTasks: TaskTypes[];
 }
 
-
 // Тип для доски
 export interface DashboardTypes {
   id: string;
   title: string;
 }
-
 
 // Тип для состояния досок
 export interface DashboardsState {
@@ -41,7 +43,8 @@ export interface RootState {
 
 // Определение типа значений формы задач
 export interface FormValues {
-  task: string;
+  title: string;
+  text: string;
 }
 
 // Определение типа значений формы доски

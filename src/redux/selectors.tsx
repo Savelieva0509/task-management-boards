@@ -1,6 +1,6 @@
-import { RootState, DashboardsState } from '../types';
+import { RootState, DashboardsState,TasksState } from '../types';
 
-export const getTasks = (state: RootState) => state.tasks.tasks;
+export const getTasks = (state: TasksState) => state.tasks;
 
 export const getDashboards = (state: DashboardsState) => state.dashboards;
 

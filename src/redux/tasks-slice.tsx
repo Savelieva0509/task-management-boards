@@ -1,17 +1,62 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 import { TaskTypes, TasksState } from '../types';
 
-const initialState: TasksState = {
-  tasks: [
-    { id: '0', text: 'Do the dishes', completed: true, deleted: false },
-    { id: '1', text: 'Take out the trash', completed: true, deleted: false },
-    { id: '2', text: 'Clean the house', completed: false, deleted: false },
-  ],
-  deletedTasks: [
-    { id: '3', text: 'Organize the closet', completed: false, deleted: true },
-    { id: '4', text: 'Cook a delicious meal', completed: false, deleted: true },
-  ],
-};
+const initialState: TaskTypes[] = [
+  {
+    id: '0',
+    dashboardId: '1',
+    title: 'Add structure of the project',
+    text: 'Сreate a project structure in accordance with company standards and requirements ',
+    toDo: true,
+    inProcess: true,
+    done: false,
+  },
+  {
+    id: '1',
+    dashboardId: '1',
+    title: 'Implement authentication system',
+    text: 'Implement authentication system using JWT for secure access to the application',
+    toDo: false,
+    inProcess: true,
+    done: false,
+  },
+  {
+    id: '2',
+    dashboardId: '1',
+    title: 'Design user interface',
+    text: 'Design user-friendly interface with modern design principles and responsive layout',
+    toDo: false,
+    inProcess: false,
+    done: true,
+  },
+  {
+    id: '3',
+    dashboardId: '1',
+    title: 'Integrate backend with frontend',
+    text: 'Integrate backend APIs with frontend components to enable data exchange between them',
+    toDo: true,
+    inProcess: false,
+    done: false,
+  },
+  {
+    id: '4',
+    dashboardId: '1',
+    title: 'Write unit tests',
+    text: 'Write comprehensive unit tests to ensure the reliability and stability of the application',
+    toDo: true,
+    inProcess: true,
+    done: false,
+  },
+  {
+    id: '5',
+    dashboardId: '1',
+    title: 'Deploy application to production',
+    text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
+    toDo: false,
+    inProcess: true,
+    done: false,
+  },
+];
 
 const tasksSlice = createSlice({
   name: 'tasks',
@@ -19,39 +64,28 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer: (state, action: PayloadAction<TaskTypes>) => {
-        state.tasks.push(action.payload);
+        state.push(action.payload);
       },
-      prepare: (text: string) => {
+      prepare: (title: string, text: string) => {
         return {
           payload: {
+            dashboardId: '1',
             id: nanoid(),
+            title,
             text,
-            completed: false,
-            deleted: false,
+            toDo: true,
+            inProcess: false,
+            done: false,
           },
         };
       },
     },
     deleteTask(state, action) {
-      const idToDelete = action.payload;
-      const deletedTaskIndex = state.tasks.findIndex(
-        task => task.id === idToDelete
-      );
-      if (deletedTaskIndex !== -1) {
-        const deletedTask = state.tasks.splice(deletedTaskIndex, 1)[0];
-        deletedTask.deleted = true;
-        state.deletedTasks.push(deletedTask);
-      }
-    },
-    toggleCompleted: (state, action) => {
-      const idToToggle = action.payload;
-      const task = state.tasks.find(task => task.id === idToToggle);
-      if (task) {
-        task.completed = !task.completed;
-      }
+      const index = state.findIndex(task => task.id === action.payload);
+      state.splice(index, 1);
     },
   },
 });
 
-export const { addTask, deleteTask, toggleCompleted } = tasksSlice.actions;
+export const { addTask, deleteTask } = tasksSlice.actions;
 export const tasksReducer = tasksSlice.reducer;
