@@ -1,12 +1,10 @@
-.wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
+.textarea {
+  margin-bottom: 10px;
 }
 
-.text {
-  flex-grow: 1;
+.buttonWrapper {
+  display: flex;
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -30,10 +28,4 @@
 
 .btn:active {
   background-color: #bdbdbd;
-}
-
-.checkbox {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
 }
