@@ -25,7 +25,9 @@ const dashboardsSlice = createSlice({
       },
     },
     deleteDashboard(state, action) {
-      const index = state.findIndex(task => task.id === action.payload);
+      const index = state.findIndex(
+        dashboard => dashboard.id === action.payload
+      );
       state.splice(index, 1);
     },
     editDashboard(state, action: PayloadAction<{ id: string; title: string }>) {
