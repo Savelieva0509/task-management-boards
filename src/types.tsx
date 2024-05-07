@@ -1,12 +1,9 @@
-// Тип для задачи
 export interface TaskTypes {
   id: string;
   dashboardId: string;
   title: string;
   text: string;
-  toDo: boolean;
-  inProcess: boolean;
-  done: boolean;
+  status: string;
 }
 
 // Тип для состояния задач
@@ -51,3 +48,5 @@ export interface FormValues {
 export interface DashboardFormValues {
   dashboard: string;
 }
+
+
