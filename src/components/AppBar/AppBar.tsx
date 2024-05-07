@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { FaArrowRight } from 'react-icons/fa';
 import css from './AppBar.module.scss';
 
 const AppBar = () => {
@@ -10,10 +9,7 @@ const AppBar = () => {
     <div className={css.wrapper}>
       {isMainPage ? (
         <>
-          <Link className={css.link} to="/:dashboardId">
-            TO DASHBOARD
-            <FaArrowRight style={{ marginLeft: '10px' }} />
-          </Link>
+          
         </>
       ) : (
         <Link className={css.link} to="/">

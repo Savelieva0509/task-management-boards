@@ -5,9 +5,8 @@ import { getDashboards } from '.././../redux/selectors';
 import { DashboardTypes } from '../../types';
 import css from './DashboardList.module.scss';
 
-
 const DashboardList = () => {
- const dashboards = useSelector(getDashboards) as DashboardTypes[];
+  const dashboards = useSelector(getDashboards) as DashboardTypes[];
   console.log(dashboards);
 
   return (

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
-import { DashboardTypes, DashboardsState } from '../types';
+import { DashboardTypes} from '../types';
 
 const initialState: DashboardTypes[] = [
   { id: '0', title: 'Project 1' },

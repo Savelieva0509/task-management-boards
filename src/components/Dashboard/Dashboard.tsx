@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';
-import { deleteDashboard,  editDashboard } from '../../redux/dashboards-slice';
+import { deleteDashboard, editDashboard } from '../../redux/dashboards-slice';
 import { DashboardTypes } from '../../types';
 import css from './Dashboard.module.scss';
 
@@ -62,7 +63,10 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
         </>
       ) : (
         <>
-          <p className={css.text}>{dashboard.title}</p>
+          <Link to={`/${dashboard.id}`} className={css.link}>
+            <p className={css.text}>{dashboard.title}</p>
+          </Link>
+
           <div className={css.buttons}>
             <button className={css.btn} onClick={handleEdit}>
               <MdEdit size={24} />

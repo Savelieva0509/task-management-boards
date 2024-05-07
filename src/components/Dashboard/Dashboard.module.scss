@@ -1,12 +1,18 @@
 .wrapper {
   display: flex;
   align-items: center;
+
   gap: 12px;
   padding: 8px 0;
 }
 
-.text {
+.link {
   flex-grow: 1;
+  text-decoration: none;
+  color: inherit;
+}
+.text {
+  font-size: 18px;
 }
 
 .btn {
