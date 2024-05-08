@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../redux/tasks-slice';
-import { FormValues } from '../../types';
 import Button from '../Button/Button';
 import css from './TaskForm.module.scss';
 

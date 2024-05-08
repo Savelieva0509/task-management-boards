@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import css from './Task.module.scss';
 import { deleteTask, editTask } from '../../redux/tasks-slice';
 import { TaskTypes } from '../../types';
+import { TaskStatus } from "../../redux/constants";
+
 
 type TaskProps = {
   task: TaskTypes;
@@ -20,14 +22,38 @@ const Task = ({ task }: TaskProps) => {
   const [editedText, setEditedText] = useState(task.text);
   const [originalText, setOriginalText] = useState(task.text);
 
+  function parseTaskStatus(status: string): TaskStatus | undefined {
+    switch (status) {
+      case 'todo':
+        return TaskStatus.TODO;
+      case 'in-progress':
+        return TaskStatus.IN_PROGRESS;
+      case 'done':
+        return TaskStatus.DONE;
+      default:
+        return undefined; // Если переданная строка не соответствует ни одному статусу
+    }
+  }
+    
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteTask(task.id));
+  const handleDelete = () =>
+    dispatch(
+      deleteTask({
+        id: task.id,
+        status: parseTaskStatus(task.status) || TaskStatus.TODO,
+      })
+    );
 
   const handleEdit = () => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
         dispatch(
-          editTask({ id: task.id, title: editedTitle, text: editedText })
+          editTask({
+            id: task.id,
+            title: editedTitle,
+            text: editedText,
+            status: parseTaskStatus(task.status) || TaskStatus.TODO,
+          })
         );
         setIsEditing(false);
       }
