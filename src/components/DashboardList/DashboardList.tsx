@@ -1,14 +1,12 @@
 import { useSelector } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 import { getDashboards } from '.././../redux/selectors';
-
 import { DashboardTypes } from '../../types';
 import css from './DashboardList.module.scss';
 
 const DashboardList = () => {
-  const dashboards = useSelector(getDashboards) as DashboardTypes[];
-  console.log(dashboards);
-
+  const dashboards = useSelector(getDashboards);
+  
   return (
     <ul className={css.list}>
       {dashboards.map((dashboard: DashboardTypes) => (

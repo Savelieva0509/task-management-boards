@@ -1,31 +1,52 @@
 import { useSelector } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { getTasksByStatus } from '../../redux/selectors';
+import { getTasksByStatusAndDashboardId } from '../../redux/selectors';
 import { TaskStatus } from '../../redux/constants';
 import { TasksState } from '../../redux/tasks-slice';
 import Task from '../Task/Task';
-import css from './TaskList.module.scss'
+import css from './TaskList.module.scss';
 
 const TaskList = () => {
+  const params = useParams<{ dashboardId?: string }>();
+  const dashboardId = params.dashboardId;
   const todoTasks = useSelector((state: { tasks: TasksState }) =>
-    getTasksByStatus(state.tasks, TaskStatus.TODO)
+    dashboardId
+      ? getTasksByStatusAndDashboardId(
+          state.tasks,
+          TaskStatus.TODO,
+          dashboardId
+        )
+      : []
   );
 
-  const inProgressTasks = useSelector(
-    (state: { tasks: TasksState }) =>
-      getTasksByStatus(state.tasks, TaskStatus.IN_PROGRESS)
+  const inProgressTasks = useSelector((state: { tasks: TasksState }) =>
+    dashboardId
+      ? getTasksByStatusAndDashboardId(
+          state.tasks,
+          TaskStatus.IN_PROGRESS,
+          dashboardId
+        )
+      : []
   );
 
   const doneTasks = useSelector((state: { tasks: TasksState }) =>
-    getTasksByStatus(state.tasks, TaskStatus.DONE)
+    dashboardId
+      ? getTasksByStatusAndDashboardId(
+          state.tasks,
+          TaskStatus.DONE,
+          dashboardId
+        )
+      : []
   );
 
   console.log('To Do Tasks:', todoTasks);
   console.log('In Progress Tasks:', inProgressTasks);
   console.log('Done Tasks:', doneTasks);
 
+ 
   return (
     <div className="container">
       <Container>

@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../redux/tasks-slice';
@@ -5,6 +6,8 @@ import Button from '../Button/Button';
 import css from './TaskForm.module.scss';
 
 const TaskForm = () => {
+  const { dashboardId } = useParams<{ dashboardId: string }>();
+
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -19,9 +22,11 @@ const TaskForm = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addTask(title, text));
-    setTitle('');
-    setText('');
+    if (dashboardId) {
+      dispatch(addTask(title, text, dashboardId));
+      setTitle('');
+      setText('');
+    }
   };
 
   return (
