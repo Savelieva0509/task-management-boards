@@ -55,8 +55,8 @@ const TaskList = () => {
             <h3>To Do</h3>
             <ul className={css.list}>
               {todoTasks.map(task => (
-                <li className={css.list}>
-                  <Task key={task.id} task={task} />
+                <li className={css.list} key={task.id}>
+                  <Task task={task} />
                 </li>
               ))}
             </ul>
@@ -65,8 +65,8 @@ const TaskList = () => {
             <h3>In Progress</h3>
             <ul className={css.list}>
               {inProgressTasks.map(task => (
-                <li className={css.list}>
-                  <Task key={task.id} task={task} />
+                <li className={css.list} key={task.id}>
+                  <Task task={task} />
                 </li>
               ))}
             </ul>
@@ -75,8 +75,8 @@ const TaskList = () => {
             <h3>Done</h3>
             <ul className={css.list}>
               {doneTasks.map(task => (
-                <li className={css.listItem}>
-                  <Task key={task.id} task={task} />
+                <li className={css.listItem} key={task.id}>
+                  <Task task={task} />
                 </li>
               ))}
             </ul>
