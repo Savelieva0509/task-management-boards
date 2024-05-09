@@ -1,11 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { getTasksByStatusAndDashboardId } from '../../redux/selectors';
 import { TaskStatus } from '../../redux/constants';
-import { TasksState } from '../../redux/tasks-slice';
+import { TasksState, moveTask } from '../../redux/tasks-slice';
 import Task from '../Task/Task';
 import css from './TaskList.module.scss';
 
@@ -42,48 +43,68 @@ const TaskList = () => {
       : []
   );
 
+  const tasksByStatus = {
+    [TaskStatus.TODO]: todoTasks,
+    [TaskStatus.IN_PROGRESS]: inProgressTasks,
+    [TaskStatus.DONE]: doneTasks,
+  };
+
   console.log('To Do Tasks:', todoTasks);
   console.log('In Progress Tasks:', inProgressTasks);
   console.log('Done Tasks:', doneTasks);
+  const dispatch = useDispatch();
 
- 
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    console.log('Drag result:', result);
+    // Проверяем, был ли объект перемещен в другое место
+    if (!destination) return;
+
+    // Проверяем, перемещается ли объект в другую колонку
+    if (source.droppableId !== destination.droppableId) {
+      // Обрабатываем перемещение между разными колонками
+      dispatch(
+        moveTask({
+          id: result.draggableId,
+          source: source.droppableId as TaskStatus,
+          destination: destination.droppableId as TaskStatus,
+        })
+      );
+    }
+  };
+  console.log(tasksByStatus);
+
   return (
-    <div className="container">
-      <Container>
-        <Row>
-          <Col>
-            <h3>To Do</h3>
-            <ul className={css.list}>
-              {todoTasks.map(task => (
-                <li className={css.list} key={task.id}>
-                  <Task task={task} />
-                </li>
-              ))}
-            </ul>
-          </Col>
-          <Col>
-            <h3>In Progress</h3>
-            <ul className={css.list}>
-              {inProgressTasks.map(task => (
-                <li className={css.list} key={task.id}>
-                  <Task task={task} />
-                </li>
-              ))}
-            </ul>
-          </Col>
-          <Col>
-            <h3>Done</h3>
-            <ul className={css.list}>
-              {doneTasks.map(task => (
-                <li className={css.listItem} key={task.id}>
-                  <Task task={task} />
-                </li>
-              ))}
-            </ul>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="container">
+        <Container>
+          <Row>
+            {/* Оборачиваем столбцы в Droppable */}
+            {Object.entries(tasksByStatus).map(([status, tasks], index) => (
+              <Col key={status}>
+                {/* Оборачиваем список задач в Droppable */}
+                <Droppable droppableId={status} key={status}>
+                  {provided => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}>
+                      <h3>{status}</h3>
+                      <ul className={css.list} id={status}>
+                        {/* Рендерим задачи в Droppable */}
+                        {tasks.map((task, index) => (
+                          <Task key={task.id} task={task} index={index} />
+                        ))}
+                      </ul>
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </div>
+    </DragDropContext>
   );
 };
 

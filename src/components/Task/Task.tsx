@@ -1,21 +1,28 @@
+import { Draggable } from 'react-beautiful-dnd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';
+import {
+  MdClose,
+  MdEdit,
+  MdSave,
+  MdCancel,
+  MdDragHandle,
+} from 'react-icons/md';
 import { Card, Form } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import css from './Task.module.scss';
 import { deleteTask, editTask } from '../../redux/tasks-slice';
 import { TaskTypes } from '../../types';
-import { TaskStatus } from "../../redux/constants";
-
+import { TaskStatus } from '../../redux/constants';
 
 type TaskProps = {
   task: TaskTypes;
+  index: number;
 };
 
-const Task = ({ task }: TaskProps) => {
+const Task = ({ task, index }: TaskProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
   const [originalTitle, setOriginalTitle] = useState(task.title);
@@ -34,7 +41,7 @@ const Task = ({ task }: TaskProps) => {
         return undefined; // Если переданная строка не соответствует ни одному статусу
     }
   }
-    
+
   const dispatch = useDispatch();
   const handleDelete = () =>
     dispatch(
@@ -79,59 +86,69 @@ const Task = ({ task }: TaskProps) => {
   };
 
   return (
-    <Card className={css.card} style={{ width: '18rem' }}>
-      <Card.Body>
-        {isEditing ? (
-          <Form>
-            <Form.Group controlId="formTaskTitle">
-              <Form.Control
-                type="text"
-                name="title"
-                value={editedTitle}
-                onChange={handleChange}
-                placeholder="Enter task title"
-              />
-            </Form.Group>
-            <Form.Group controlId="formTaskText">
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="text"
-                value={editedText}
-                onChange={handleChange}
-                placeholder="Enter task text"
-                className={css.textarea}
-              />
-            </Form.Group>
-          </Form>
-        ) : (
-          <>
-            <Card.Title>{task.title}</Card.Title>
-            <Card.Text>{task.text}</Card.Text>
-          </>
-        )}
+    <Draggable key={task.id} draggableId={task.id} index={index}>
+      {provided => (
+        <div ref={provided.innerRef} {...provided.draggableProps}>
+          <Card className={css.card} style={{ width: '18rem' }}>
+            <Card.Body>
+              {isEditing ? (
+                <Form>
+                  <Form.Group controlId="formTaskTitle">
+                    <Form.Control
+                      type="text"
+                      name="title"
+                      value={editedTitle}
+                      onChange={handleChange}
+                      placeholder="Enter task title"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formTaskText">
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      name="text"
+                      value={editedText}
+                      onChange={handleChange}
+                      placeholder="Enter task text"
+                      className={css.textarea}
+                    />
+                  </Form.Group>
+                </Form>
+              ) : (
+                <>
+                  <Card.Title>{task.title}</Card.Title>
+                  <Card.Text>{task.text}</Card.Text>
+                </>
+              )}
 
-        {isEditing ? (
-          <div className={css.buttonWrapper}>
-            <button className={css.btn} onClick={handleEdit}>
-              <MdSave size={24} />
-            </button>
-            <button className={css.btn} onClick={handleCancel}>
-              <MdCancel size={24} />
-            </button>
-          </div>
-        ) : (
-          <div className={css.buttonWrapper}>
-            <button className={css.btn} onClick={handleEdit}>
-              <MdEdit size={24} />
-            </button>
-            <button className={css.btn} onClick={handleDelete}>
-              <MdClose size={24} />
-            </button>
-          </div>
-        )}
-      </Card.Body>
-    </Card>
+              {isEditing ? (
+                <div className={css.buttonWrapper}>
+                  <button className={css.btn} onClick={handleEdit}>
+                    <MdSave size={24} />
+                  </button>
+                  <button className={css.btn} onClick={handleCancel}>
+                    <MdCancel size={24} />
+                  </button>
+                </div>
+              ) : (
+                <div className={css.buttonWrapper}>
+                  <button className={css.btn} onClick={handleEdit}>
+                    <MdEdit size={24} />
+                  </button>
+                  <button className={css.btn} onClick={handleDelete}>
+                    <MdClose size={24} />
+                  </button>
+                </div>
+              )}
+            </Card.Body>
+            {/* Ручка для перетаскивания */}
+            <div {...provided.dragHandleProps} className={css.dragHandle}>
+              <MdDragHandle size={24} />
+            </div>
+          </Card>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
