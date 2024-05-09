@@ -2,7 +2,6 @@ import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 import { TaskStatus } from './constants';
 import { TaskTypes } from '../types';
 
-
 export interface TasksState {
   [TaskStatus.TODO]: TaskTypes[];
   [TaskStatus.IN_PROGRESS]: TaskTypes[];
@@ -17,7 +16,6 @@ const initialState: TasksState = {
       title: 'Add structure of the project',
       text: 'Сreate a project structure in accordance with company standards and requirements ',
       status: TaskStatus.TODO,
-      order: 0,
     },
     {
       id: '222',
@@ -25,7 +23,6 @@ const initialState: TasksState = {
       title: 'Implement authentication system',
       text: 'Implement authentication system using JWT for secure access to the application',
       status: TaskStatus.TODO,
-      order: 1,
     },
     {
       id: '333',
@@ -33,7 +30,6 @@ const initialState: TasksState = {
       title: 'Integrate backend with frontend',
       text: 'Integrate backend APIs with frontend components to enable data exchange between them',
       status: TaskStatus.TODO,
-      order: 2,
     },
 
     {
@@ -42,7 +38,6 @@ const initialState: TasksState = {
       title: 'Deploy application to production',
       text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
       status: TaskStatus.TODO,
-      order: 3,
     },
   ],
   [TaskStatus.IN_PROGRESS]: [
@@ -52,7 +47,6 @@ const initialState: TasksState = {
       title: 'Design user interface',
       text: 'Design user-friendly interface with modern design principles and responsive layout',
       status: TaskStatus.IN_PROGRESS,
-      order: 4,
     },
   ],
   [TaskStatus.DONE]: [
@@ -62,7 +56,6 @@ const initialState: TasksState = {
       title: 'Write unit tests',
       text: 'Write comprehensive unit tests to ensure the reliability and stability of the application',
       status: TaskStatus.DONE,
-      order: 5,
     },
   ],
 };
@@ -73,7 +66,6 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer: (state, action: PayloadAction<TaskTypes>) => {
-        action.payload.order = state[TaskStatus.TODO].length;
         state[TaskStatus.TODO].push(action.payload);
       },
       prepare: (title: string, text: string, dashboardId: string) => {
@@ -84,7 +76,6 @@ const tasksSlice = createSlice({
             title,
             text,
             status: TaskStatus.TODO,
-            order: 0,
           },
         };
       },

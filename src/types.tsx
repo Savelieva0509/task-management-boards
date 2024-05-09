@@ -6,7 +6,6 @@ export interface TaskTypes {
   title: string;
   text: string;
   status: string;
-  order: number;
 }
 
 // Тип для доски
