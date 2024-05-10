@@ -16,7 +16,7 @@ const MainPage = () => {
         </h1>
         {dashboards.length === 0 ? (
           <Link className={css.link} to={`/dashboards`}>
-            LET START <FaArrowRight style={{ marginLeft: '15px' }} />
+            LET'S START <FaArrowRight style={{ marginLeft: '15px' }} />
           </Link>
         ) : (
           <Link className={css.link} to={`/dashboards/${lastDashboardId}`}>
