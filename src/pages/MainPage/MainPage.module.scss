@@ -1,14 +1,18 @@
 .link {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
   background-color: #1976d2;
   color: #ffffff;
   text-decoration: none;
   border-radius: 5px;
   border: none;
-  font-size: 16px;
+  font-size: 24px;
   height: min-content;
+  width: 190px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .link:hover {
@@ -17,11 +21,8 @@
 
 .hero {
   text-align: center;
-
-  padding-top: 200px;
-  padding-bottom: 200px;
-
-  max-width: 1400px;
+  padding-top: 300px;
+  height: 100vh;
   margin-left: auto;
   margin-right: auto;
 
@@ -38,11 +39,13 @@
 
 .container {
   max-width: 696px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.hero__title {
+.title {
   text-transform: uppercase;
-  color: var(--primary-white-color);
+  color: #ffffff;
   margin-bottom: 30px;
   font-size: 44px;
 }

@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { getLastDashboardId, getDashboards } from '../../redux/selectors';
-
 import css from './MainPage.module.scss';
 
 const MainPage = () => {
@@ -17,13 +16,11 @@ const MainPage = () => {
         </h1>
         {dashboards.length === 0 ? (
           <Link className={css.link} to={`/dashboards`}>
-            <FaArrowRight style={{ marginRight: '10px' }} />
-            LET START
+            LET START <FaArrowRight style={{ marginLeft: '15px' }} />
           </Link>
         ) : (
           <Link className={css.link} to={`/dashboards/${lastDashboardId}`}>
-            <FaArrowRight style={{ marginRight: '10px' }} />
-            LET START
+            LET START <FaArrowRight style={{ marginLeft: '15px' }} />
           </Link>
         )}
       </div>
