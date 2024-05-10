@@ -1,5 +1,4 @@
 import Layout from '../../components/Layout/Layout';
-import css from './NotFoundPage.module.scss';
 
 const containerStyle = {
   marginLeft: '400px',

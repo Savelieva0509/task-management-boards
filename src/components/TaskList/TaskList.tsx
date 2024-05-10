@@ -48,9 +48,6 @@ const TaskList = () => {
     [TaskStatus.DONE]: doneTasks,
   };
 
-  console.log('To Do Tasks:', todoTasks);
-  console.log('In Progress Tasks:', inProgressTasks);
-  console.log('Done Tasks:', doneTasks);
   const dispatch = useDispatch();
 
   const onDragEnd = (result: DropResult) => {
@@ -71,32 +68,31 @@ const TaskList = () => {
       );
     }
   };
-  console.log(tasksByStatus);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-        <Row>
-          {/* Оборачиваем столбцы в Droppable */}
-          {Object.entries(tasksByStatus).map(([status, tasks], index) => (
-            <Col key={status} md={4} className={css.column}>
-              {/* Оборачиваем список задач в Droppable */}
-              <Droppable droppableId={status} key={status}>
-                {provided => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    <h3>{status}</h3>
-                    <ul className={css.list} id={status}>
-                      {/* Рендерим задачи в Droppable */}
-                      {tasks.map((task, index) => (
-                        <Task key={task.id} task={task} index={index} />
-                      ))}
-                    </ul>
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </Col>
-          ))}
-        </Row>
+      <Row>
+        {/* Оборачиваем столбцы в Droppable */}
+        {Object.entries(tasksByStatus).map(([status, tasks], index) => (
+          <Col key={status} md={4} className={css.column}>
+            {/* Оборачиваем список задач в Droppable */}
+            <Droppable droppableId={status} key={status}>
+              {provided => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <h3>{status}</h3>
+                  <ul className={css.list} id={status}>
+                    {/* Рендерим задачи в Droppable */}
+                    {tasks.map((task, index) => (
+                      <Task key={task.id} task={task} index={index} />
+                    ))}
+                  </ul>
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </Col>
+        ))}
+      </Row>
     </DragDropContext>
   );
 };
