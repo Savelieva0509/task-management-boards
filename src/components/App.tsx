@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import DashboardPage from '../pages/DashboardPage/DashboardPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import MainPage from '../pages/MainPage/MainPage';
-import AddDashboard from '../pages/Dashboards/AddDashboardPage';
+import AddDashboardPage from '../pages/AddDashboardPage/AddDashboardPage';
 import { getDashboards } from './../redux/selectors';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route index element={<MainPage />} />
         {dashboards.length === 0 ? (
-          <Route path="dashboards" element={<AddDashboard />} />
+          <Route path="dashboards" element={<AddDashboardPage />} />
         ) : (
           <Route path="dashboards/:dashboardId" element={<DashboardPage />} />
         )}

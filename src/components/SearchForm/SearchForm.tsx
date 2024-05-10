@@ -38,7 +38,7 @@ const SearchForm = () => {
     );
 
     if (foundDashboard) {
-      navigate(`/${dashboardId}`);
+      navigate(`/dashboards/${dashboardId}`);
     } else {
       formikHelpers.resetForm();
       navigate(`"*"`);

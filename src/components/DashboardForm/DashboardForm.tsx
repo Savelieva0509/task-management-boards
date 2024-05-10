@@ -10,7 +10,7 @@ const initialValues = {
   dashboard: '',
 };
 
-const maxLength = 40 ;
+const maxLength = 40;
 
 const dashboardSchema = Yup.object().shape({
   dashboard: Yup.string()

@@ -12,14 +12,14 @@ const initialState: TasksState = {
   [TaskStatus.TODO]: [
     {
       id: '111',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Add structure of the project',
       text: 'Сreate a project structure in accordance with company standards and requirements ',
       status: TaskStatus.TODO,
     },
     {
       id: '222',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Implement authentication system',
       text: 'Implement authentication system using JWT for secure access to the application',
       status: TaskStatus.TODO,
@@ -28,7 +28,7 @@ const initialState: TasksState = {
   [TaskStatus.IN_PROGRESS]: [
     {
       id: '333',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Integrate backend with frontend',
       text: 'Integrate backend APIs with frontend components to enable data exchange between them',
       status: TaskStatus.IN_PROGRESS,
@@ -43,7 +43,7 @@ const initialState: TasksState = {
     },
     {
       id: '555',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Design user interface',
       text: 'Design user-friendly interface with modern design principles and responsive layout',
       status: TaskStatus.IN_PROGRESS,
@@ -52,7 +52,7 @@ const initialState: TasksState = {
   [TaskStatus.DONE]: [
     {
       id: '666',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Write unit tests',
       text: 'Write comprehensive unit tests to ensure the reliability and stability of the application',
       status: TaskStatus.DONE,
@@ -123,10 +123,8 @@ const tasksSlice = createSlice({
         return;
       }
 
-      // Remove the task from the source column
       const updatedSource = state[source].filter(task => task.id !== id);
 
-      // Update the destination column
       const updatedDestination = [...state[destination], taskToMove];
 
       return {
