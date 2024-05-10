@@ -12,7 +12,7 @@ const initialValues = {
 
 const maxLength = 40;
 
-const dashboardSchema = Yup.object().shape({
+const DashboardSchema = Yup.object().shape({
   dashboard: Yup.string()
     .max(maxLength, `Entry length must not exceed ${maxLength} characters`)
     .required('Enter text'),
@@ -33,7 +33,7 @@ const DashboardForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={dashboardSchema}
+      validationSchema={DashboardSchema}
       onSubmit={handleFormSubmit}
     >
       {({ handleSubmit, errors, touched }) => (

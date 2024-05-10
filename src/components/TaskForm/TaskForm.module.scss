@@ -1,11 +1,17 @@
+.formWrapper {
+  margin-bottom: 60px;
+  text-align: start;
+}
+
 .form {
   display: flex;
   gap: 10px;
-  margin-bottom: 50px;
+  justify-content: space-between;
 }
 
+
 .field {
-  flex-grow: 1;
+ width: 520px;
   padding: 8px;
   font: inherit;
   border-radius: 8px;

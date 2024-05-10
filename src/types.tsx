@@ -33,3 +33,10 @@ export interface DashboardFormValues {
 export interface SearchFormValues {
   dashboardId: string;
 }
+
+// Определение типа значений формы задачи
+export interface TaskFormValues {
+  title: string;
+  text: string;
+  dashboardId: string;
+}
