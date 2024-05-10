@@ -63,7 +63,7 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
         </>
       ) : (
         <>
-          <Link to={`/${dashboard.id}`} className={css.link}>
+          <Link to={`/dashboards/${dashboard.id}`} className={css.link}>
             <p className={css.text}>{dashboard.title}</p>
           </Link>
 
