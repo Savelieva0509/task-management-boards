@@ -1,17 +1,8 @@
 import { Draggable } from 'react-beautiful-dnd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import {
-  MdClose,
-  MdEdit,
-  MdSave,
-  MdCancel,
-  MdDragHandle,
-} from 'react-icons/md';
+import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';
 import { Card, Form } from 'react-bootstrap';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import css from './Task.module.scss';
 import { deleteTask, editTask } from '../../redux/tasks-slice';
 import { TaskTypes } from '../../types';

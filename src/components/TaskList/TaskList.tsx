@@ -53,12 +53,10 @@ const TaskList = () => {
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     console.log('Drag result:', result);
-    // Проверяем, был ли объект перемещен в другое место
+
     if (!destination) return;
 
-    // Проверяем, перемещается ли объект в другую колонку
     if (source.droppableId !== destination.droppableId) {
-      // Обрабатываем перемещение между разными колонками
       dispatch(
         moveTask({
           id: result.draggableId,
@@ -72,16 +70,13 @@ const TaskList = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Row>
-        {/* Оборачиваем столбцы в Droppable */}
         {Object.entries(tasksByStatus).map(([status, tasks], index) => (
           <Col key={status} md={4} className={css.column}>
-            {/* Оборачиваем список задач в Droppable */}
             <Droppable droppableId={status} key={status}>
               {provided => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   <h3>{status}</h3>
                   <ul className={css.list} id={status}>
-                    {/* Рендерим задачи в Droppable */}
                     {tasks.map((task, index) => (
                       <Task key={task.id} task={task} index={index} />
                     ))}
