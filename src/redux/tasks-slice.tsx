@@ -36,7 +36,7 @@ const initialState: TasksState = {
 
     {
       id: '444',
-      dashboardId: '12',
+      dashboardId: '13',
       title: 'Deploy application to production',
       text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
       status: TaskStatus.IN_PROGRESS,
