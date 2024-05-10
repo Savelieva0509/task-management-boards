@@ -54,7 +54,8 @@ const SearchForm = () => {
       {({ handleSubmit, errors, touched }) => (
         <>
           <form className={css.form} onSubmit={handleSubmit}>
-            <Field
+            <div className={css.fieldWrapper}>
+               <Field
               className={`${css.field} ${
                 touched.dashboardId && errors.dashboardId ? css.error_field : ''
               }`}
@@ -62,14 +63,14 @@ const SearchForm = () => {
               name="dashboardId"
               placeholder="Enter dashboard id..."
             />
-
+            <ErrorMessage
+              name="dashboardId"
+              component="div"
+              className={css.error}
+            />
+            </div>
             <Button type="submit">Search</Button>
           </form>
-          <ErrorMessage
-            name="dashboardId"
-            component="div"
-            className={css.error}
-          />
         </>
       )}
     </Formik>
