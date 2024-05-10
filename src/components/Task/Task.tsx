@@ -88,8 +88,12 @@ const Task = ({ task, index }: TaskProps) => {
   return (
     <Draggable key={task.id} draggableId={task.id} index={index}>
       {provided => (
-        <div ref={provided.innerRef} {...provided.draggableProps}>
-          <Card className={css.card} style={{ width: '18rem' }}>
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Card className={css.card} style={{ width: '25rem' }}>
             <Card.Body>
               {isEditing ? (
                 <Form>
@@ -141,10 +145,6 @@ const Task = ({ task, index }: TaskProps) => {
                 </div>
               )}
             </Card.Body>
-            {/* Ручка для перетаскивания */}
-            <div {...provided.dragHandleProps} className={css.dragHandle}>
-              <MdDragHandle size={24} />
-            </div>
           </Card>
         </div>
       )}

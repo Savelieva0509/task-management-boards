@@ -40,5 +40,6 @@ const dashboardsSlice = createSlice({
   },
 });
 
-export const { addDashboard, deleteDashboard, editDashboard } = dashboardsSlice.actions;
+export const { addDashboard, deleteDashboard, editDashboard } =
+  dashboardsSlice.actions;
 export const dashboardsReducer = dashboardsSlice.reducer;

@@ -24,12 +24,14 @@ const initialState: TasksState = {
       text: 'Implement authentication system using JWT for secure access to the application',
       status: TaskStatus.TODO,
     },
+  ],
+  [TaskStatus.IN_PROGRESS]: [
     {
       id: '333',
       dashboardId: '12',
       title: 'Integrate backend with frontend',
       text: 'Integrate backend APIs with frontend components to enable data exchange between them',
-      status: TaskStatus.TODO,
+      status: TaskStatus.IN_PROGRESS,
     },
 
     {
@@ -37,10 +39,8 @@ const initialState: TasksState = {
       dashboardId: '12',
       title: 'Deploy application to production',
       text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
-      status: TaskStatus.TODO,
+      status: TaskStatus.IN_PROGRESS,
     },
-  ],
-  [TaskStatus.IN_PROGRESS]: [
     {
       id: '555',
       dashboardId: '12',

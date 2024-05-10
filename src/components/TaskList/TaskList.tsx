@@ -3,7 +3,6 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
 import { getTasksByStatusAndDashboardId } from '../../redux/selectors';
 import { TaskStatus } from '../../redux/constants';
 import { TasksState, moveTask } from '../../redux/tasks-slice';
@@ -76,34 +75,28 @@ const TaskList = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="container">
-        <Container>
-          <Row>
-            {/* Оборачиваем столбцы в Droppable */}
-            {Object.entries(tasksByStatus).map(([status, tasks], index) => (
-              <Col key={status}>
-                {/* Оборачиваем список задач в Droppable */}
-                <Droppable droppableId={status} key={status}>
-                  {provided => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}>
-                      <h3>{status}</h3>
-                      <ul className={css.list} id={status}>
-                        {/* Рендерим задачи в Droppable */}
-                        {tasks.map((task, index) => (
-                          <Task key={task.id} task={task} index={index} />
-                        ))}
-                      </ul>
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </div>
+        <Row>
+          {/* Оборачиваем столбцы в Droppable */}
+          {Object.entries(tasksByStatus).map(([status, tasks], index) => (
+            <Col key={status} md={4} className={css.column}>
+              {/* Оборачиваем список задач в Droppable */}
+              <Droppable droppableId={status} key={status}>
+                {provided => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <h3>{status}</h3>
+                    <ul className={css.list} id={status}>
+                      {/* Рендерим задачи в Droppable */}
+                      {tasks.map((task, index) => (
+                        <Task key={task.id} task={task} index={index} />
+                      ))}
+                    </ul>
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </Col>
+          ))}
+        </Row>
     </DragDropContext>
   );
 };

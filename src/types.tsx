@@ -29,3 +29,8 @@ export interface FormValues {
 export interface DashboardFormValues {
   dashboard: string;
 }
+
+// Определение типа значений формы поиска
+export interface SearchFormValues {
+  dashboardId: string;
+}

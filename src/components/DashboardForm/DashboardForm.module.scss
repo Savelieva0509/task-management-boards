@@ -1,12 +1,13 @@
 .form {
   display: flex;
-  gap: 4px;
+  gap: 10px;
 }
 
 .field {
   flex-grow: 1;
   padding: 8px;
   font: inherit;
+  border-radius: 8px;
 }
 
 .field:focus {

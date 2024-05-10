@@ -1,22 +1,24 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import SearchForm from '../SearchForm/SearchForm';
 import css from './AppBar.module.scss';
 
+const containerStyle = {
+  marginLeft: '400px',
+  padding: '40px',
+  display: 'flex',
+  justifyContent: 'space-between',
+};
+
 const AppBar = () => {
-  const location = useLocation();
-  const isMainPage = location.pathname === '/';
+
   return (
-    <div className={css.wrapper}>
-      {isMainPage ? (
-        <>
-          
-        </>
-      ) : (
-        <Link className={css.link} to="/">
-          <FaArrowLeft style={{ marginRight: '10px' }} />
-          ALL DASHBOARDS
-        </Link>
-      )}
+    <div className="container text-center" style={containerStyle}>
+      <Link className={css.link} to="/">
+        <FaArrowLeft style={{ marginRight: '10px' }} />
+        TO MAIN
+      </Link>
+      <SearchForm />
     </div>
   );
 };
