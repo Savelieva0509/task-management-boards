@@ -1,4 +1,4 @@
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable } from '@hello-pangea/dnd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams } from 'react-router-dom';
@@ -52,8 +52,6 @@ const TaskList = () => {
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
-    console.log('Drag result:', result);
-
     if (!destination) return;
 
     if (source.droppableId !== destination.droppableId) {

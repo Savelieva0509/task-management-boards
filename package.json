@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://Savelieva0509.github.io/task-management-boards/",
   "dependencies": {
+    "@hello-pangea/dnd": "^16.6.0",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/node": "^20",
     "@types/react": "^18",
