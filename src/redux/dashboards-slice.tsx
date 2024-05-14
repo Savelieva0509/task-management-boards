@@ -1,4 +1,4 @@
- import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
+ import { createSlice } from '@reduxjs/toolkit';
 import { DashboardTypes } from '../types';
 import {
   fetchDashboards,

@@ -1,7 +1,7 @@
 // Тип для состояния задач
 export interface TaskTypes {
   id: string;
-  dashboardId: string;
+  boardId: string;
   title: string;
   text: string;
   status: string;

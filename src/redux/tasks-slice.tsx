@@ -12,14 +12,14 @@ const initialState: TasksState = {
   [TaskStatus.TODO]: [
     {
       id: '111',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Add structure of the project',
       text: 'Сreate a project structure in accordance with company standards and requirements ',
       status: TaskStatus.TODO,
     },
     {
       id: '222',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Implement authentication system',
       text: 'Implement authentication system using JWT for secure access to the application',
       status: TaskStatus.TODO,
@@ -28,7 +28,7 @@ const initialState: TasksState = {
   [TaskStatus.IN_PROGRESS]: [
     {
       id: '333',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Integrate backend with frontend',
       text: 'Integrate backend APIs with frontend components to enable data exchange between them',
       status: TaskStatus.IN_PROGRESS,
@@ -36,14 +36,14 @@ const initialState: TasksState = {
 
     {
       id: '444',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Deploy application to production',
       text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
       status: TaskStatus.IN_PROGRESS,
     },
     {
       id: '555',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Design user interface',
       text: 'Design user-friendly interface with modern design principles and responsive layout',
       status: TaskStatus.IN_PROGRESS,
@@ -52,7 +52,7 @@ const initialState: TasksState = {
   [TaskStatus.DONE]: [
     {
       id: '666',
-      dashboardId: '13',
+      boardId: '13',
       title: 'Write unit tests',
       text: 'Write comprehensive unit tests to ensure the reliability and stability of the application',
       status: TaskStatus.DONE,
@@ -68,10 +68,10 @@ const tasksSlice = createSlice({
       reducer: (state, action: PayloadAction<TaskTypes>) => {
         state[TaskStatus.TODO].push(action.payload);
       },
-      prepare: (title: string, text: string, dashboardId: string) => {
+      prepare: (title: string, text: string, boardId: string) => {
         return {
           payload: {
-            dashboardId,
+            boardId,
             id: nanoid(),
             title,
             text,

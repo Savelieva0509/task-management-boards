@@ -10,8 +10,8 @@ import Task from '../Task/Task';
 import css from './TaskList.module.scss';
 
 const TaskList = () => {
-  const params = useParams<{ dashboardId?: string }>();
-  const dashboardId = params.dashboardId;
+  const params = useParams<{ boardId?: string }>();
+  const dashboardId = params.boardId;
   const todoTasks = useSelector((state: { tasks: TasksState }) =>
     dashboardId
       ? getTasksByStatusAndDashboardId(

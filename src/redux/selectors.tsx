@@ -17,7 +17,7 @@ export const getLastDashboardId = (state: DashboardsState) => {
 export const getTasksByStatusAndDashboardId = (
   state: TasksState,
   status: TaskStatus,
-  dashboardId: string
+  boardId: string
 ) => {
-  return state[status].filter(task => task.dashboardId === dashboardId);
+  return state[status].filter(task => task.boardId === boardId);
 };
