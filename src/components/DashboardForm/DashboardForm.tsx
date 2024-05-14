@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Formik, ErrorMessage, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { addDashboard } from '../../redux/dashboards-slice';
+import { addDashboard } from '../../redux/dashboards-operations';
 import { DashboardFormValues } from '../../types';
 import Button from '../Button/Button';
 import css from './DashboardForm.module.scss';
@@ -21,7 +22,7 @@ const DashboardSchema = Yup.object().shape({
 const DashboardForm = () => {
   interface MyFormikHelpers extends FormikHelpers<DashboardFormValues> {}
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const handleFormSubmit = (
     formikValues: DashboardFormValues,
     formikHelpers: MyFormikHelpers

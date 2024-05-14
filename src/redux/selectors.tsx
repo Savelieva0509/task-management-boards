@@ -5,12 +5,12 @@ import { TasksState } from './tasks-slice';
 export const getDashboards = (state: DashboardsState) => state.dashboards;
 
 export const getLastDashboardId = (state: DashboardsState) => {
-  const dashboards = state.dashboards; 
+  const dashboards = state.dashboards;
 
   if (dashboards.length > 0) {
-    return dashboards[dashboards.length - 1].id;
+    return dashboards[dashboards.length - 1]._id;
   } else {
-    return ''; 
+    return '';
   }
 };
 
@@ -21,5 +21,3 @@ export const getTasksByStatusAndDashboardId = (
 ) => {
   return state[status].filter(task => task.dashboardId === dashboardId);
 };
-  
-

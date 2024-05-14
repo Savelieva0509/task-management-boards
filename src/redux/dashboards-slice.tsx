@@ -1,45 +1,44 @@
-import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
-import { DashboardTypes} from '../types';
+ import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
+import { DashboardTypes } from '../types';
+import {
+  fetchDashboards,
+  addDashboard,
+  deleteDashboard,
+  editDashboard,
+} from '../redux/dashboards-operations';
 
-const initialState: DashboardTypes[] = [
-  { id: '10', title: 'Project 1' },
-  { id: '12', title: 'Project 2' },
-  { id: '13', title: 'Project 3' },
-];
+
+const initialState: DashboardTypes[] = [];
 
 const dashboardsSlice = createSlice({
   name: 'dashboards',
   initialState: initialState,
-  reducers: {
-    addDashboard: {
-      reducer: (state, action: PayloadAction<DashboardTypes>) => {
-        state.push(action.payload);
-      },
-      prepare: (title: string) => {
-        return {
-          payload: {
-            id: nanoid(),
-            title,
-          },
-        };
-      },
-    },
-    deleteDashboard(state, action) {
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchDashboards.fulfilled, (state, action) => {
+      return action.payload;
+    });
+    builder.addCase(fetchDashboards.rejected, (state, action) => {
+      console.error('Failed to fetch dashboards:', action.error.message);
+    });
+
+    builder.addCase(addDashboard.fulfilled, (state, action) => {
+      
+      state.push(action.payload);
+    });
+    builder.addCase(deleteDashboard.fulfilled, (state, action) => {
+      return state.filter(dashboard => dashboard._id !== action.payload);
+    });
+    builder.addCase(editDashboard.fulfilled, (state, action) => {
+      const updatedDashboard = action.payload;
       const index = state.findIndex(
-        dashboard => dashboard.id === action.payload
+        dashboard => dashboard._id === updatedDashboard._id
       );
-      state.splice(index, 1);
-    },
-    editDashboard(state, action: PayloadAction<{ id: string; title: string }>) {
-      const { id, title } = action.payload;
-      const dashboard = state.find(dashboard => dashboard.id === id);
-      if (dashboard) {
-        dashboard.title = title;
+      if (index !== -1) {
+        state[index] = updatedDashboard;
       }
-    },
+    });
   },
 });
 
-export const { addDashboard, deleteDashboard, editDashboard } =
-  dashboardsSlice.actions;
-export const dashboardsReducer = dashboardsSlice.reducer;
+export const dashboardsReducer = dashboardsSlice.reducer

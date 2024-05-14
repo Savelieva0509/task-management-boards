@@ -34,7 +34,7 @@ const SearchForm = () => {
     }
 
     const foundDashboard = dashboards.find(
-      dashboard => dashboard.id === dashboardId
+      dashboard => dashboard._id === dashboardId
     );
 
     if (foundDashboard) {
@@ -55,19 +55,21 @@ const SearchForm = () => {
         <>
           <form className={css.form} onSubmit={handleSubmit}>
             <div className={css.fieldWrapper}>
-               <Field
-              className={`${css.field} ${
-                touched.dashboardId && errors.dashboardId ? css.error_field : ''
-              }`}
-              type="text"
-              name="dashboardId"
-              placeholder="Enter dashboard id..."
-            />
-            <ErrorMessage
-              name="dashboardId"
-              component="div"
-              className={css.error}
-            />
+              <Field
+                className={`${css.field} ${
+                  touched.dashboardId && errors.dashboardId
+                    ? css.error_field
+                    : ''
+                }`}
+                type="text"
+                name="dashboardId"
+                placeholder="Enter dashboard id..."
+              />
+              <ErrorMessage
+                name="dashboardId"
+                component="div"
+                className={css.error}
+              />
             </div>
             <Button type="submit">Search</Button>
           </form>

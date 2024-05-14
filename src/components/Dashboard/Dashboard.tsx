@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';
-import { deleteDashboard, editDashboard } from '../../redux/dashboards-slice';
+import {
+  deleteDashboard,
+  editDashboard,
+} from '../../redux/dashboards-operations';
 import { DashboardTypes } from '../../types';
 import css from './Dashboard.module.scss';
 
@@ -11,20 +15,30 @@ type DashboardProps = {
 };
 
 const Dashboard = ({ dashboard }: DashboardProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(dashboard.title);
   const [originalTitle, setOriginalTitle] = useState(dashboard.title);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = () => {
-    dispatch(deleteDashboard(dashboard.id));
+    dispatch(deleteDashboard(dashboard._id));
   };
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
-        dispatch(editDashboard({ id: dashboard.id, title: editedTitle }));
-        setIsEditing(false);
+        setIsLoading(true);
+        try {
+          await dispatch(
+            editDashboard({ id: dashboard._id, title: editedTitle })
+          );
+          setIsEditing(false);
+        } catch (error: any) {
+          console.error('Failed to edit dashboard:', error.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
     } else {
       setIsEditing(true);
@@ -63,7 +77,7 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
         </>
       ) : (
         <>
-          <Link to={`/dashboards/${dashboard.id}`} className={css.link}>
+          <Link to={`/dashboards/${dashboard._id}`} className={css.link}>
             <p className={css.text}>{dashboard.title}</p>
           </Link>
 

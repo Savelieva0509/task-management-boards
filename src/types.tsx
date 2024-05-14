@@ -9,8 +9,10 @@ export interface TaskTypes {
 
 // Тип для доски
 export interface DashboardTypes {
-  id: string;
+  _id: string;
   title: string;
+  createdAt?: string; 
+  updatedAt?: string;
 }
 
 // Тип для состояния досок
