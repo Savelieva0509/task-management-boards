@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Formik, ErrorMessage, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { TaskFormValues, TaskTypes } from '../../types';
+import { TaskFormValues } from '../../types';
 import { addTask } from '../../redux/tasks-operations';
 import Button from '../Button/Button';
 import css from './TaskForm.module.scss';

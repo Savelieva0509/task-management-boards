@@ -7,7 +7,6 @@ import { Card, Form } from 'react-bootstrap';
 import css from './Task.module.scss';
 import { deleteTask, editTask } from '../../redux/tasks-operations';
 import { TaskTypes } from '../../types';
-import { TaskStatus } from '../../redux/constants';
 
 type TaskProps = {
   task: TaskTypes;
@@ -20,7 +19,7 @@ const Task = ({ task, index }: TaskProps) => {
   const [originalTitle, setOriginalTitle] = useState(task.title);
   const [editedText, setEditedText] = useState(task.text);
   const [originalText, setOriginalText] = useState(task.text);
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(false);
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const handleDelete = () =>
@@ -31,7 +30,7 @@ const Task = ({ task, index }: TaskProps) => {
       })
     );
 
-  const handleEdit = async() => {
+  const handleEdit = async () => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
         setIsLoading(true);

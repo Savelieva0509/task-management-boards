@@ -23,7 +23,6 @@ const TaskList = () => {
   }, [dispatch, dashboardId]);
 
   const tasks = useSelector(getTasks);
-  console.log(tasks, 'tasks');
 
   const todoTasks = tasks.filter(
     task => task.boardId === dashboardId && task.status === TaskStatus.TODO
@@ -47,14 +46,6 @@ const TaskList = () => {
     const { source, destination } = result;
     if (!destination) return;
 
-console.log(
-  'Dragged from:',
-  source.droppableId,
-  'to:',
-  destination.droppableId
-);
-
-
     if (source.droppableId !== destination.droppableId && dashboardId) {
       dispatch(
         moveTask({
@@ -76,7 +67,7 @@ console.log(
             <Droppable droppableId={status} key={status}>
               {provided => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                  <h3>{status}</h3>
+                  <h3 className={css.columnTitle}>{status.toUpperCase()}</h3>
                   <ul className={css.list} id={status}>
                     {tasks.map((task, index) => (
                       <Task key={task._id} task={task} index={index} />

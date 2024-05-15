@@ -19,7 +19,7 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(dashboard.title);
   const [originalTitle, setOriginalTitle] = useState(dashboard.title);
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteDashboard(dashboard._id));

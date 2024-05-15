@@ -1,6 +1,4 @@
-import { createSelector } from '@reduxjs/toolkit';
-import { DashboardsState, TaskTypes } from '../types';
-import { TaskStatus } from './constants';
+import { DashboardsState } from '../types';
 import { TasksState } from './tasks-slice';
 
 export const getDashboards = (state: DashboardsState) => state.dashboards;

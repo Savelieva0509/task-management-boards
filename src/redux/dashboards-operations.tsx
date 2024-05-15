@@ -19,7 +19,6 @@ export const addDashboard = createAsyncThunk(
   'dashboards/addDashboard',
   async (title: string, thunkAPI) => {
     try {
-      console.log('Title:', title);
       const response = await axios.post('/api/boards', { title });
       return response.data;
     } catch (error: any) {

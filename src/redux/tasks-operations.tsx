@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TaskTypes, TaskFormValues } from '../types';
+import { TaskFormValues } from '../types';
 
 axios.defaults.baseURL = 'https://task-managment-boards-backend.onrender.com';
 

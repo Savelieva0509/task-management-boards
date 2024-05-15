@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TaskStatus } from './constants';
+import { createSlice } from '@reduxjs/toolkit';
 import { TaskTypes } from '../types';
 import {
   fetchTasksForBoard,
