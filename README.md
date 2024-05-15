@@ -1,25 +1,24 @@
-<h1 align="center"> ToDo List App </h1>
+<h1 align="center">Task Management Boards</h1>
 
 <p align="center">
 <img src="assets/prev.jpg" width="500">
 </p>
 
-This is a simple ToDo List application built with React and Redux. It allows you to manage your tasks, mark them as completed, and delete them.
+Task Management Boards is a web application for organizing tasks into customizable boards. It allows users to create boards, add tasks to them, and move tasks between different statuses.
 
 ## Features
 
-- Add a new task
-- Mark tasks as completed
-- Delete tasks
-- Filter tasks based on their completion status
-- Task counter
-- Deleted tasks are saved in the archive
+- **Create Boards:** Users can create boards to organize their tasks based on different projects, teams, or categories.
+- **Delete Boards:** Users can delete boards.
+- **Update Board:** User can edit the board name.
+- **Add Tasks:** Within each board, users can add tasks with titles and descriptions.
+- **Manage Tasks:** Tasks can be moved between different statuses (e.g., To Do, In Progress, Done) within a board to reflect their current state.
+- **Edit Tasks:** Users can edit task titles and descriptions directly within the application.
+- **Delete Tasks:** Tasks can be deleted from boards when they are no longer needed.
 
-## Technologies
+## Technologies Used
 
-- **React:** A JavaScript library for building user interfaces.
-- **Redux:** A predictable state container for JavaScript applications.
-- **Formik:** A popular form library for React applications.
-- **Yup:** A JavaScript schema builder for value parsing and validation.
-- **GitHub Actions:** Automate your workflow using GitHub Actions.
+- **Frontend:** React.js, Redux, React Router, Bootstrap, Formik, Yup, react-beautiful-dnd
+- **Backend:** Node.js, Express.js, MongoDB
+
 
