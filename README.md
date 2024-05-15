@@ -11,6 +11,7 @@ Task Management Boards is a web application for organizing tasks into customizab
 - **Create Boards:** Users can create boards to organize their tasks based on different projects, teams, or categories.
 - **Delete Boards:** Users can delete boards.
 - **Update Board:** User can edit the board name.
+- **Search Board:** User can search the board by id.
 - **Add Tasks:** Within each board, users can add tasks with titles and descriptions.
 - **Manage Tasks:** Tasks can be moved between different statuses (e.g., To Do, In Progress, Done) within a board to reflect their current state.
 - **Edit Tasks:** Users can edit task titles and descriptions directly within the application.
