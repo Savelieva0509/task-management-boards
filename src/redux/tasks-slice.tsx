@@ -1,140 +1,60 @@
-import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TaskStatus } from './constants';
 import { TaskTypes } from '../types';
+import {
+  fetchTasksForBoard,
+  addTask,
+  deleteTask,
+  editTask,
+  moveTask,
+} from './tasks-operations';
 
 export interface TasksState {
-  [TaskStatus.TODO]: TaskTypes[];
-  [TaskStatus.IN_PROGRESS]: TaskTypes[];
-  [TaskStatus.DONE]: TaskTypes[];
+  tasks: TaskTypes[];
 }
 
 const initialState: TasksState = {
-  [TaskStatus.TODO]: [
-    {
-      id: '111',
-      boardId: '13',
-      title: 'Add structure of the project',
-      text: 'Сreate a project structure in accordance with company standards and requirements ',
-      status: TaskStatus.TODO,
-    },
-    {
-      id: '222',
-      boardId: '13',
-      title: 'Implement authentication system',
-      text: 'Implement authentication system using JWT for secure access to the application',
-      status: TaskStatus.TODO,
-    },
-  ],
-  [TaskStatus.IN_PROGRESS]: [
-    {
-      id: '333',
-      boardId: '13',
-      title: 'Integrate backend with frontend',
-      text: 'Integrate backend APIs with frontend components to enable data exchange between them',
-      status: TaskStatus.IN_PROGRESS,
-    },
-
-    {
-      id: '444',
-      boardId: '13',
-      title: 'Deploy application to production',
-      text: 'Deploy the application to production server using Docker and Kubernetes for scalability',
-      status: TaskStatus.IN_PROGRESS,
-    },
-    {
-      id: '555',
-      boardId: '13',
-      title: 'Design user interface',
-      text: 'Design user-friendly interface with modern design principles and responsive layout',
-      status: TaskStatus.IN_PROGRESS,
-    },
-  ],
-  [TaskStatus.DONE]: [
-    {
-      id: '666',
-      boardId: '13',
-      title: 'Write unit tests',
-      text: 'Write comprehensive unit tests to ensure the reliability and stability of the application',
-      status: TaskStatus.DONE,
-    },
-  ],
+  tasks: [],
 };
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState: initialState,
-  reducers: {
-    addTask: {
-      reducer: (state, action: PayloadAction<TaskTypes>) => {
-        state[TaskStatus.TODO].push(action.payload);
-      },
-      prepare: (title: string, text: string, boardId: string) => {
-        return {
-          payload: {
-            boardId,
-            id: nanoid(),
-            title,
-            text,
-            status: TaskStatus.TODO,
-          },
-        };
-      },
-    },
-    deleteTask(
-      state,
-      action: PayloadAction<{
-        id: string;
-        status: TaskStatus;
-      }>
-    ) {
-      const { id, status } = action.payload;
-      const index = state[status].findIndex(task => task.id === id);
-      state[status].splice(index, 1);
-    },
-    editTask(
-      state,
-      action: PayloadAction<{
-        id: string;
-        title: string;
-        text: string;
-        status: TaskStatus;
-      }>
-    ) {
-      const { id, title, text, status } = action.payload;
-      const task = state[status].find(task => task.id === id);
-      if (task) {
-        task.title = title;
-        task.text = text;
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchTasksForBoard.fulfilled, (state, action) => {
+      state.tasks = action.payload;
+    });
+    builder.addCase(fetchTasksForBoard.rejected, (state, action) => {
+      console.error('Failed to fetch tasks:', action.error.message);
+    });
+
+    builder.addCase(addTask.fulfilled, (state, action) => {
+      state.tasks.push(action.payload);
+    });
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      const taskId = action.payload;
+      state.tasks = state.tasks.filter(task => task._id !== taskId);
+    });
+    builder.addCase(editTask.fulfilled, (state, action) => {
+      const editedTask = action.payload;
+      const index = state.tasks.findIndex(task => task._id === editedTask._id);
+      if (index !== -1) {
+        state.tasks[index] = editedTask;
+      } else {
+        console.error(`Task with id ${editedTask._id} not found`);
       }
-    },
-    moveTask(
-      state,
-      action: PayloadAction<{
-        id: string;
-        source: TaskStatus;
-        destination: TaskStatus;
-      }>
-    ) {
-      const { id, source, destination } = action.payload;
-      const taskToMove = state[source].find(task => task.id === id);
-
-      if (!taskToMove) {
-        console.error(`Task with id ${id} not found in source ${source}`);
-        return;
+    });
+    builder.addCase(moveTask.fulfilled, (state, action) => {
+      const { _id, destination } = action.payload;
+      const index = state.tasks.findIndex(task => task._id === _id);
+      if (index !== -1) {
+        state.tasks[index].status = destination;
+      } else {
+        console.error(`Task with id ${_id} not found`);
       }
-
-      const updatedSource = state[source].filter(task => task.id !== id);
-
-      const updatedDestination = [...state[destination], taskToMove];
-
-      return {
-        ...state,
-        [source]: updatedSource,
-        [destination]: updatedDestination,
-      };
-    },
+    });
   },
 });
 
-export const { moveTask, addTask, deleteTask, editTask } = tasksSlice.actions;
 export const tasksReducer = tasksSlice.reducer;

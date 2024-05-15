@@ -1,6 +1,6 @@
 // Тип для состояния задач
 export interface TaskTypes {
-  id: string;
+  _id: string;
   boardId: string;
   title: string;
   text: string;
@@ -40,5 +40,5 @@ export interface SearchFormValues {
 export interface TaskFormValues {
   title: string;
   text: string;
-  dashboardId: string;
+  boardId: string;
 }

@@ -1,45 +1,40 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams } from 'react-router-dom';
-import { getTasksByStatusAndDashboardId } from '../../redux/selectors';
+import { getTasks } from '../../redux/selectors';
 import { TaskStatus } from '../../redux/constants';
-import { TasksState, moveTask } from '../../redux/tasks-slice';
+import { moveTask, fetchTasksForBoard } from '../../redux/tasks-operations';
 import Task from '../Task/Task';
 import css from './TaskList.module.scss';
 
 const TaskList = () => {
-  const params = useParams<{ boardId?: string }>();
-  const dashboardId = params.boardId;
-  const todoTasks = useSelector((state: { tasks: TasksState }) =>
-    dashboardId
-      ? getTasksByStatusAndDashboardId(
-          state.tasks,
-          TaskStatus.TODO,
-          dashboardId
-        )
-      : []
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const params = useParams<{ dashboardId?: string }>();
+  const dashboardId = params.dashboardId;
+
+  useEffect(() => {
+    if (dashboardId) {
+      dispatch(fetchTasksForBoard(dashboardId));
+    }
+  }, [dispatch, dashboardId]);
+
+  const tasks = useSelector(getTasks);
+  console.log(tasks, 'tasks');
+
+  const todoTasks = tasks.filter(
+    task => task.boardId === dashboardId && task.status === TaskStatus.TODO
+  );
+  const inProgressTasks = tasks.filter(
+    task =>
+      task.boardId === dashboardId && task.status === TaskStatus.IN_PROGRESS
   );
 
-  const inProgressTasks = useSelector((state: { tasks: TasksState }) =>
-    dashboardId
-      ? getTasksByStatusAndDashboardId(
-          state.tasks,
-          TaskStatus.IN_PROGRESS,
-          dashboardId
-        )
-      : []
-  );
-
-  const doneTasks = useSelector((state: { tasks: TasksState }) =>
-    dashboardId
-      ? getTasksByStatusAndDashboardId(
-          state.tasks,
-          TaskStatus.DONE,
-          dashboardId
-        )
-      : []
+  const doneTasks = tasks.filter(
+    task => task.boardId === dashboardId && task.status === TaskStatus.DONE
   );
 
   const tasksByStatus = {
@@ -48,20 +43,28 @@ const TaskList = () => {
     [TaskStatus.DONE]: doneTasks,
   };
 
-  const dispatch = useDispatch();
-
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
 
-    if (source.droppableId !== destination.droppableId) {
+console.log(
+  'Dragged from:',
+  source.droppableId,
+  'to:',
+  destination.droppableId
+);
+
+
+    if (source.droppableId !== destination.droppableId && dashboardId) {
       dispatch(
         moveTask({
-          id: result.draggableId,
-          source: source.droppableId as TaskStatus,
-          destination: destination.droppableId as TaskStatus,
+          boardId: dashboardId,
+          taskId: result.draggableId,
+          status: destination.droppableId as TaskStatus,
         })
-      );
+      ).then(() => {
+        dispatch(fetchTasksForBoard(dashboardId));
+      });
     }
   };
 
@@ -76,7 +79,7 @@ const TaskList = () => {
                   <h3>{status}</h3>
                   <ul className={css.list} id={status}>
                     {tasks.map((task, index) => (
-                      <Task key={task.id} task={task} index={index} />
+                      <Task key={task._id} task={task} index={index} />
                     ))}
                   </ul>
                   {provided.placeholder}

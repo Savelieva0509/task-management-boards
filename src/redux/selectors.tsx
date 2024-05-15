@@ -1,4 +1,5 @@
-import { DashboardsState } from '../types';
+import { createSelector } from '@reduxjs/toolkit';
+import { DashboardsState, TaskTypes } from '../types';
 import { TaskStatus } from './constants';
 import { TasksState } from './tasks-slice';
 
@@ -14,10 +15,4 @@ export const getLastDashboardId = (state: DashboardsState) => {
   }
 };
 
-export const getTasksByStatusAndDashboardId = (
-  state: TasksState,
-  status: TaskStatus,
-  boardId: string
-) => {
-  return state[status].filter(task => task.boardId === boardId);
-};
+export const getTasks = (state: { tasks: TasksState }) => state.tasks.tasks;

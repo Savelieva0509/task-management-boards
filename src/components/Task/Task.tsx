@@ -1,10 +1,11 @@
 import { Draggable } from '@hello-pangea/dnd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { MdClose, MdEdit, MdSave, MdCancel } from 'react-icons/md';
 import { Card, Form } from 'react-bootstrap';
 import css from './Task.module.scss';
-import { deleteTask, editTask } from '../../redux/tasks-slice';
+import { deleteTask, editTask } from '../../redux/tasks-operations';
 import { TaskTypes } from '../../types';
 import { TaskStatus } from '../../redux/constants';
 
@@ -19,41 +20,37 @@ const Task = ({ task, index }: TaskProps) => {
   const [originalTitle, setOriginalTitle] = useState(task.title);
   const [editedText, setEditedText] = useState(task.text);
   const [originalText, setOriginalText] = useState(task.text);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function parseTaskStatus(status: string): TaskStatus | undefined {
-    switch (status) {
-      case 'todo':
-        return TaskStatus.TODO;
-      case 'in-progress':
-        return TaskStatus.IN_PROGRESS;
-      case 'done':
-        return TaskStatus.DONE;
-      default:
-        return undefined; // Если переданная строка не соответствует ни одному статусу
-    }
-  }
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const handleDelete = () =>
     dispatch(
       deleteTask({
-        id: task.id,
-        status: parseTaskStatus(task.status) || TaskStatus.TODO,
+        taskId: task._id,
+        boardId: task.boardId,
       })
     );
 
-  const handleEdit = () => {
+  const handleEdit = async() => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
-        dispatch(
-          editTask({
-            id: task.id,
-            title: editedTitle,
-            text: editedText,
-            status: parseTaskStatus(task.status) || TaskStatus.TODO,
-          })
-        );
-        setIsEditing(false);
+        setIsLoading(true);
+        try {
+          await dispatch(
+            editTask({
+              taskId: task._id,
+              boardId: task.boardId,
+              title: editedTitle,
+              text: editedText,
+              status: task.status,
+            })
+          );
+          setIsEditing(false);
+        } catch (error: any) {
+          console.error('Failed to edit task', error.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
     } else {
       setIsEditing(true);
@@ -77,7 +74,7 @@ const Task = ({ task, index }: TaskProps) => {
   };
 
   return (
-    <Draggable key={task.id} draggableId={task.id} index={index}>
+    <Draggable key={task._id} draggableId={task._id} index={index}>
       {provided => (
         <div
           ref={provided.innerRef}

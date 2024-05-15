@@ -1,16 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Formik, ErrorMessage, Field, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { TaskFormValues } from '../../types';
-import { addTask } from '../../redux/tasks-slice';
+import { TaskFormValues, TaskTypes } from '../../types';
+import { addTask } from '../../redux/tasks-operations';
 import Button from '../Button/Button';
 import css from './TaskForm.module.scss';
 
 const initialValues = {
   title: '',
   text: '',
-  dashboardId: '',
+  boardId: '',
 };
 
 const TaskSchema = Yup.object().shape({
@@ -22,17 +23,23 @@ const TaskForm = () => {
   interface MyFormikHelpers extends FormikHelpers<TaskFormValues> {}
   const { dashboardId } = useParams<{ dashboardId: string }>();
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-  const handleFormSubmit = (
-    formikValues: TaskFormValues,
-    formikHelpers: MyFormikHelpers
-  ) => {
-    if (dashboardId) {
-      dispatch(addTask(formikValues.text, formikValues.title, dashboardId));
-      formikHelpers.resetForm();
-    }
-  };
+const handleFormSubmit = (
+  formikValues: TaskFormValues,
+  formikHelpers: MyFormikHelpers
+) => {
+  if (dashboardId) {
+    const task = {
+      title: formikValues.title,
+      text: formikValues.text,
+      boardId: dashboardId,
+      status: 'to do', 
+    };
+    dispatch(addTask(task));
+    formikHelpers.resetForm();
+  }
+};
 
   return (
     <Formik
