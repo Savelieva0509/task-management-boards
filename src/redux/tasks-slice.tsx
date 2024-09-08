@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TaskTypes } from '../types';
+import { TasksState } from '../types';
 import {
   fetchTasksForBoard,
   addTask,
@@ -8,12 +8,9 @@ import {
   moveTask,
 } from './tasks-operations';
 
-export interface TasksState {
-  tasks: TaskTypes[];
-}
-
 const initialState: TasksState = {
   tasks: [],
+  loading: false,
 };
 
 const tasksSlice = createSlice({
@@ -21,10 +18,15 @@ const tasksSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
+    builder.addCase(fetchTasksForBoard.pending, (state, action) => {
+      state.loading = true;
+    });
     builder.addCase(fetchTasksForBoard.fulfilled, (state, action) => {
+      state.loading = false;
       state.tasks = action.payload;
     });
     builder.addCase(fetchTasksForBoard.rejected, (state, action) => {
+      state.loading = false;
       console.error('Failed to fetch tasks:', action.error.message);
     });
 

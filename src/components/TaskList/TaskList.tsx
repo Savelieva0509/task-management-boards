@@ -5,7 +5,8 @@ import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams } from 'react-router-dom';
-import { getTasks } from '../../redux/selectors';
+import { ClipLoader } from 'react-spinners';
+import { getTasks, getTasksLoading } from '../../redux/selectors';
 import { TaskStatus } from '../../redux/constants';
 import { moveTask, fetchTasksForBoard } from '../../redux/tasks-operations';
 import Task from '../Task/Task';
@@ -15,6 +16,7 @@ const TaskList = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const params = useParams<{ dashboardId?: string }>();
   const dashboardId = params.dashboardId;
+  const loading = useSelector(getTasksLoading);
 
   useEffect(() => {
     if (dashboardId) {
@@ -60,27 +62,37 @@ const TaskList = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Row>
-        {Object.entries(tasksByStatus).map(([status, tasks], index) => (
-          <Col key={status} md={4} className={css.column}>
-            <Droppable droppableId={status} key={status}>
-              {provided => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  <h3 className={css.columnTitle}>{status.toUpperCase()}</h3>
-                  <ul className={css.list} id={status}>
-                    {tasks.map((task, index) => (
-                      <Task key={task._id} task={task} index={index} />
-                    ))}
-                  </ul>
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </Col>
-        ))}
-      </Row>
-    </DragDropContext>
+    <>
+      {loading ? (
+        <div className={css.spinnerContainer}>
+          <ClipLoader size={80} color={'#1976d2'} loading={loading} />
+        </div>
+      ) : (
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Row>
+            {Object.entries(tasksByStatus).map(([status, tasks], index) => (
+              <Col key={status} md={4} className={css.column}>
+                <Droppable droppableId={status} key={status}>
+                  {provided => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                      <h3 className={css.columnTitle}>
+                        {status.toUpperCase()}
+                      </h3>
+                      <ul className={css.list} id={status}>
+                        {tasks.map((task, index) => (
+                          <Task key={task._id} task={task} index={index} />
+                        ))}
+                      </ul>
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </Col>
+            ))}
+          </Row>
+        </DragDropContext>
+      )}
+    </>
   );
 };
 

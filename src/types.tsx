@@ -18,6 +18,14 @@ export interface DashboardTypes {
 // Тип для состояния досок
 export interface DashboardsState {
   dashboards: DashboardTypes[];
+  loading: boolean;
+  addingDashboard: boolean;
+}
+
+// Тип для состояния задач
+export interface TasksState {
+  tasks: TaskTypes[];
+  loading: boolean;
 }
 
 // Определение типа значений формы задач

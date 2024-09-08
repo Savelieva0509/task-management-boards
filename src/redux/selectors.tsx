@@ -1,10 +1,10 @@
-import { DashboardsState } from '../types';
-import { TasksState } from './tasks-slice';
+import { DashboardsState, TasksState } from '../types';
 
-export const getDashboards = (state: DashboardsState) => state.dashboards;
+export const getDashboards = (state: { dashboards: DashboardsState }) =>
+  state.dashboards.dashboards;
 
-export const getLastDashboardId = (state: DashboardsState) => {
-  const dashboards = state.dashboards;
+export const getLastDashboardId = (state: { dashboards: DashboardsState }) => {
+  const dashboards = state.dashboards.dashboards;
 
   if (dashboards.length > 0) {
     return dashboards[dashboards.length - 1]._id;
@@ -14,3 +14,11 @@ export const getLastDashboardId = (state: DashboardsState) => {
 };
 
 export const getTasks = (state: { tasks: TasksState }) => state.tasks.tasks;
+
+export const getTasksLoading = (state: { tasks: TasksState }) => state.tasks.loading;
+
+export const getDashboardsLoading = (state: { dashboards: DashboardsState }) =>
+  state.dashboards.loading;
+  
+export const getAddingDashboard = (state: { dashboards: DashboardsState }) =>
+  state.dashboards.addingDashboard;
