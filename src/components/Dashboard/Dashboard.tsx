@@ -19,7 +19,6 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(dashboard.title);
   const [originalTitle, setOriginalTitle] = useState(dashboard.title);
-  const [, setIsLoading] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteDashboard(dashboard._id));
@@ -28,7 +27,6 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
   const handleEdit = async () => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
-        setIsLoading(true);
         try {
           await dispatch(
             editDashboard({ id: dashboard._id, title: editedTitle })
@@ -36,8 +34,6 @@ const Dashboard = ({ dashboard }: DashboardProps) => {
           setIsEditing(false);
         } catch (error: any) {
           console.error('Failed to edit dashboard:', error.message);
-        } finally {
-          setIsLoading(false);
         }
       }
     } else {

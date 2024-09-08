@@ -12,12 +12,14 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<MainPage />} />
-        {dashboards.length === 0 ? (
-          <Route path="dashboards" element={<AddDashboardPage />} />
-        ) : (
-          <Route path="dashboards/:dashboardId" element={<DashboardPage />} />
-        )}
+        <Route path="/" element={<MainPage />} />
+        <Route
+          path="dashboards"
+          element={
+            dashboards.length === 0 ? <AddDashboardPage /> : <DashboardPage />
+          }
+        />
+        <Route path="dashboards/:dashboardId" element={<DashboardPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

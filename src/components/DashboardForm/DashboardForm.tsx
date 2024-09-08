@@ -48,7 +48,6 @@ const DashboardForm = () => {
               name="dashboard"
               placeholder="Enter dashboard title..."
             />
-
             <Button type="submit">Add dashboard</Button>
           </form>
           <ErrorMessage

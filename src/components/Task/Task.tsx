@@ -19,7 +19,6 @@ const Task = ({ task, index }: TaskProps) => {
   const [originalTitle, setOriginalTitle] = useState(task.title);
   const [editedText, setEditedText] = useState(task.text);
   const [originalText, setOriginalText] = useState(task.text);
-  const [, setIsLoading] = useState(false);
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const handleDelete = () =>
@@ -33,7 +32,6 @@ const Task = ({ task, index }: TaskProps) => {
   const handleEdit = async () => {
     if (isEditing) {
       if (editedTitle.trim() !== '') {
-        setIsLoading(true);
         try {
           await dispatch(
             editTask({
@@ -47,8 +45,6 @@ const Task = ({ task, index }: TaskProps) => {
           setIsEditing(false);
         } catch (error: any) {
           console.error('Failed to edit task', error.message);
-        } finally {
-          setIsLoading(false);
         }
       }
     } else {
